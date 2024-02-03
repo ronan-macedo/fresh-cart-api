@@ -1,5 +1,7 @@
 # Fresh Cart API
 
+![Logo](./public/logo.png)
+
 ## Dependencies
 
 All project dependencies can be found in the *package.json* file.  

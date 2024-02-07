@@ -13,3 +13,5 @@ router.post('/', customersController.createCustomer);
 router.put('/:id', customersController.updateCustomer);
 //Delete (DELETE) a Customer Details
 router.delete('/:id', customersController.deleteCustomer);
+
+module.exports = router;

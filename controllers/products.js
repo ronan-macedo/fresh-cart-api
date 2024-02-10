@@ -33,33 +33,37 @@ const createProduct = async (req, res, next) => {
       //New Product Details
     const newProduct = {
         name: req.body.name,
-        category: req.body.category,
+        description: req.body.description,
+        brand: req.body.brand,
+        quantity: req.body.quantity,
         photoUrls: req.body.photoUrls,
-        tags: req.body.tags,
+        pointPrice: req.body.pointPrice,
         status: req.body.status
     };
     //Connect to database
     const response = await mongodb
         .getDatabase()
         .db()
-        .collection('books')
+        .collection('products')
         .insertOne(newProduct);
     if(response.acknowledged) {
         res.status(201).json(response);
     } else {
-        res.status(500).json(response.error || 'Sorry, New Book Details was not created.');
+        res.status(500).json(response.error || 'Sorry, New Product was not created.');
     }
 };
 //Update (PUT) an old Product Details in the Database
 const updateProduct = async (req, res) => {
-    const productId = new ObjectId(req.params.id);
+    const productId = new ObjectId();
     // be aware of updateOne if you only want to update specific fields
      const updateProduct = {
-        name: req.body.name,
-        category: req.body.category,
-        photoUrls: req.body.photoUrls,
-        tags: req.body.tags,
-        status: req.body.status
+      name: req.body.name,
+      description: req.body.description,
+      brand: req.body.brand,
+      quantity: req.body.quantity,
+      photoUrls: req.body.photoUrls,
+      pointPrice: req.body.pointPrice,
+      status: req.body.status
      };
      const response = await mongodb
        .getDatabase()
@@ -82,7 +86,7 @@ const deleteProduct = async (req, res) => {
     const response = await mongodb
     .getDatabase()
     .db()
-    .collection('books')
+    .collection('products')
     .deleteOne({ _id: productId }, true);
     console.log(response);
     if (response.deletedCount > 0) {

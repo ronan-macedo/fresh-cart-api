@@ -28,18 +28,16 @@ const getSingle = async (req, res) => {
     });
   };
   
-//Create (POST) a new Book Details in the Database
+//Create (POST) a new Sale in the Database
 const createSales = async (req, res, next) => {
       //New Sales Details
     const newSales = {
-        bookISBN: req.body.bookISBN,
-        bookTitle: req.body.bookTitle,
-        bookDescription: req.body.bookDescription,
-        authorName: req.body.authorName,
-        releaseDate: req.body.releaseDate,
-        publisher: req.body.publisher,
-        price: req.body.price
-    };
+        saleDate: req.body.saleDate,
+        membershipCode: req.body.membershipCode,
+        products: req.body.products,
+        totalAmount: req.body.totalAmount,
+        isCancelled: req.body.isCancelled
+      };
     //Connect to database
     const response = await mongodb
         .getDatabase()
@@ -49,7 +47,7 @@ const createSales = async (req, res, next) => {
     if(response.acknowledged) {
         res.status(201).json(response);
     } else {
-        res.status(500).json(response.error || 'Sorry, New Sales Detail was not created.');
+        res.status(500).json(response.error || 'Sorry, New Sales was not created.');
     }
 };
 //Update (PUT) an Sales Details in the Database
@@ -57,13 +55,11 @@ const updateSales = async (req, res) => {
      const salesId = new ObjectId();
     // be aware of updateOne if you only want to update specific fields
      const updateSales = {
-      bookISBN: req.body.bookISBN,
-           bookTitle: req.body.bookTitle,
-           bookDescription: req.body.bookDescription,
-           authorName: req.body.authorName,
-           releaseDate: req.body.releaseDate,
-           publisher: req.body.publisher,
-           price: req.body.price
+      saleDate: req.body.saleDate,
+      membershipCode: req.body.membershipCode,
+      products: req.body.products,
+      totalAmount: req.body.totalAmount,
+      isCancelled: req.body.isCancelled
      };
      const response = await mongodb
        .getDatabase()

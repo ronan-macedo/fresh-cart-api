@@ -38,7 +38,8 @@ const createCustomer = async (req, res, next) => {
         email: req.body.email,
         password: req.body.password,
         phoneNumber: req.body.phoneNumber,
-        address: req.body.address
+        address: req.body.address,
+        membershipCode: req.body.membershipCode
     };
     //Connect to database
     const response = await mongodb
@@ -49,7 +50,7 @@ const createCustomer = async (req, res, next) => {
     if(response.acknowledged) {
         res.status(201).json(response);
     } else {
-        res.status(500).json(response.error || 'Sorry, New Book Details was not created.');
+        res.status(500).json(response.error || 'Sorry, New Customer was not created.');
     }
 };
 //Update (PUT) an old Customer Details in the Database
@@ -62,18 +63,19 @@ const updateCustomer = async (req, res) => {
            email: req.body.email,
            password: req.body.password,
            phoneNumber: req.body.phoneNumber,
-           address: req.body.address
+           address: req.body.address,
+           membershipCode: req.body.membershipCode
      };
      const response = await mongodb
        .getDatabase()
        .db()
-       .collection('books')
+       .collection('customers')
        .replaceOne({ _id: customerId }, updateCustomer);
      console.log(response);
      if (response.modifiedCount > 0) {
        res.status(204).send();
      } else {
-       res.status(500).json(response.error || 'Some error occurred while updating the Book details.');
+       res.status(500).json(response.error || 'Some error occurred while updating the Customer details.');
      }
    };
    
@@ -91,7 +93,7 @@ const deleteCustomer = async (req, res) => {
     if (response.deletedCount > 0) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || 'Some error occurred while deleting the Book Details.');
+      res.status(500).json(response.error || 'Some error occurred while deleting the Customer Details.');
     }
   };
     module.exports = { 

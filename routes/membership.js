@@ -9,7 +9,7 @@ router.get('/', membershipController.getAll);
 // Read (GET) a single Membership Details from the database
 router.get('/:id', membershipController.getSingle);
 //Create (POST) a new Membership Details
-router.post('/', booksController.createMembership);
+router.post('/', membershipController.createMembership);
 //Delete (DELETE) a Merbership Details and Code
 router.delete('/:id', membershipController.deleteMembership);
 

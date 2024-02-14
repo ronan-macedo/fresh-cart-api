@@ -120,7 +120,7 @@ customersController.createCustomer = async (req, res) => {
 }
 
 /**
- * Creates a new customer.
+ * Updates a new customer.
  * @param {Object} req Express request object.
  * @param {Object} res Express response object.
  * @returns {Promise<void>} A Promise that resolves after handling the request.

@@ -1,0 +1,1936 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "FreshCart API",
+        "version": "1.0.0",
+        "description": "For login and logout the application simple use the following routes: '/login' and '/logout'",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5500/"
+        }
+    ],
+    "paths": {
+        "/sale/{id}": {
+            "get": {
+                "tags": [
+                    "sale"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SaleResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get sale by Id.",
+                "description": "Get sale by Id."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Sale cancellation request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SaleCancellationRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "sale"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiNotification"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Cancel a sale.",
+                "description": "Cancel a sale.",
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/sale": {
+            "get": {
+                "tags": [
+                    "sale"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "pageSize",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedSaleResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get sales with pagination.",
+                "description": "Get sales with pagination."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "Product request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SaleRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "sale"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SaleResponse"
+                                }
+                            }
+                        },
+                        "description": "Created."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Register a sale.",
+                "description": "Register a sale.",
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get product by Id.",
+                "description": "Get product by Id."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Product request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "product"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Edit a product.",
+                "description": "Edit a product.",
+                "x-codegen-request-body-name": "body"
+            },
+            "delete": {
+                "tags": [
+                    "product"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Remove a product.",
+                "description": "Remove a product."
+            }
+        },
+        "/product": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "pageSize",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedProductResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get products with pagination.",
+                "description": "Get products with pagination."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "Product request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "product"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductResponse"
+                                }
+                            }
+                        },
+                        "description": "Created."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Register a product.",
+                "description": "Register a product.",
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/membership/{code}": {
+            "get": {
+                "tags": [
+                    "membership"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MembershipResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get membership by membershipCode.",
+                "description": "Get membership by membershipCode."
+            }
+        },
+        "/membership": {
+            "get": {
+                "tags": [
+                    "membership"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "pageSize",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedMembershipResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get memberships with pagination.",
+                "description": "Get memberships with pagination."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "Membership request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MembershipRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "membership"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MembershipResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    }
+                },
+                "summary": "Activate or deactivate membership.",
+                "description": "Activate or deactivate membership.",
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/customer/membership/{code}": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "code",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get customer by membership code.",
+                "description": "Get customer by membership code."
+            }
+        },
+        "/customer/{id}": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get customer by Id.",
+                "description": "Get customer by Id."
+            },
+            "put": {
+                "requestBody": {
+                    "description": "Customer request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Not Found."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Edit a customer.",
+                "description": "Edit customer.",
+                "x-codegen-request-body-name": "body"
+            },
+            "delete": {
+                "tags": [
+                    "customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Remove a customer.",
+                "description": "Remove a customer."
+            }
+        },
+        "/customer": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "pageSize",
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaginatedCustomerReponse"
+                                }
+                            }
+                        },
+                        "description": "Success."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Get customers with pagination.",
+                "description": "Get customers with pagination."
+            },
+            "post": {
+                "requestBody": {
+                    "description": "Customer request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "customer"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        },
+                        "description": "Created."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Register a customer.",
+                "description": "Register a customer.",
+                "x-codegen-request-body-name": "body"
+            }
+        },
+        "/sale/points": {
+            "post": {
+                "requestBody": {
+                    "description": "Product request.",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SaleRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "sale"
+                ],
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SalePointsResponse"
+                                }
+                            }
+                        },
+                        "description": "Created."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiErrors"
+                                }
+                            }
+                        },
+                        "description": "Bad Request."
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiError"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error."
+                    }
+                },
+                "summary": "Register a sale with points.",
+                "description": "Register a sale with points.",
+                "x-codegen-request-body-name": "body"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Address": {
+                "title": "Address",
+                "description": "Address.",
+                "type": "object",
+                "properties": {
+                    "firstLine": {
+                        "type": "string"
+                    },
+                    "lastLine": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "firstLine": "Main street 01",
+                    "lastLine": "Apt 1",
+                    "city": "Smalltown"
+                }
+            },
+            "CustomerRequest": {
+                "title": "CustomerRequest",
+                "description": "Customer request.",
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "membership": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "email": "john.doe@email.com",
+                    "address": {
+                        "firstLine": "Main street 01",
+                        "lastLine": "Apt 4",
+                        "city": "Smalville"
+                    },
+                    "membership": true
+                }
+            },
+            "CustomerResponse": {
+                "title": "CustomerResponse",
+                "description": "Customer response.",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "membershipCode": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "_id": "65a8747d7aaceb61d2c91eab",
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "email": "john.doe@email.com",
+                    "address": {
+                        "firstLine": "Main street 01",
+                        "lastLine": "Apt 4",
+                        "city": "Smalville"
+                    },
+                    "membershipCode": "cO2JskE6"
+                }
+            },
+            "ApiError": {
+                "title": "ApiError",
+                "description": "Api error.",
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "error": "Some error."
+                }
+            },
+            "ApiErrors": {
+                "title": "ApiErrors",
+                "description": "Api error list.",
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ApiError"
+                        }
+                    }
+                },
+                "example": {
+                    "errors": [
+                        {
+                            "error": "Some error."
+                        },
+                        {
+                            "error": "Another error."
+                        }
+                    ]
+                }
+            },
+            "ApiNotification": {
+                "title": "ApiNotification",
+                "description": "Api notification message.",
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "message": "Success!"
+                }
+            },
+            "MembershipRequest": {
+                "title": "MembershipRequest",
+                "description": "Membership request.",
+                "type": "object",
+                "properties": {
+                    "customerId": {
+                        "type": "string"
+                    },
+                    "membership": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "customerId": "65a8747d7aaceb61d2c91eab",
+                    "membership": true
+                }
+            },
+            "ProductRequest": {
+                "title": "ProductRequest",
+                "description": "Product request.",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "brand": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "pointsPrice": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "name": "Product 1",
+                    "description": "Product description",
+                    "category": "Some Category",
+                    "brand": "No brand",
+                    "quantity": 50,
+                    "price": 1.8,
+                    "pointsPrice": 6
+                }
+            },
+            "ProductResponse": {
+                "title": "ProductResponse",
+                "description": "Product response.",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "brand": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    },
+                    "pointsPrice": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "_id": "65a8747d7aaceb61d2c91eab",
+                    "name": "Product 1",
+                    "description": "Product description",
+                    "category": "Some Category",
+                    "brand": "No brand",
+                    "quantity": 50,
+                    "price": 1.8,
+                    "pointsPrice": 6
+                }
+            },
+            "SaleRequest": {
+                "title": "SaleRequest",
+                "description": "Sale request.",
+                "type": "object",
+                "properties": {
+                    "membershipCode": {
+                        "type": "string"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SaleProductRequest"
+                        }
+                    }
+                },
+                "example": {
+                    "membershipCode": "cO2JskE6",
+                    "products": [
+                        {
+                            "productId": "65a8747d7aaceb61d2c91ecd",
+                            "quantity": 2
+                        }
+                    ]
+                }
+            },
+            "SaleCancellationRequest": {
+                "title": "SaleCancellationRequest",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "isCancelled": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "isCancelled": true
+                }
+            },
+            "SaleResponse": {
+                "title": "SaleResponse",
+                "description": "Sale response.",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "saleDate": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "membershipCode": {
+                        "type": "string"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SaleProductResponse"
+                        }
+                    },
+                    "totalAmount": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "isCancelled": {
+                        "type": "boolean"
+                    },
+                    "points": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "_id": "65a8747d7aaceb61d2c91eab",
+                    "saleDate": "2023-02-10",
+                    "membershipCode": "cO2JskE6",
+                    "products": [
+                        {
+                            "productId": "65a8747d7aaceb61d2c91ecd",
+                            "productName": "Some product",
+                            "quantity": 2,
+                            "price": 1.5
+                        }
+                    ],
+                    "totalAmount": 3,
+                    "isCancelled": false,
+                    "points": 1
+                }
+            },
+            "MembershipResponse": {
+                "title": "MembershipResponse",
+                "description": "Membership response.",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "string"
+                    },
+                    "registrationDate": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "lastPurchase": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "purchaseHistory": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Purchase"
+                        }
+                    },
+                    "points": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "active": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "_id": "65a8747d7aaceb61d2c91eab",
+                    "code": "cO2JskE6",
+                    "registrationDate": "2018-01-17",
+                    "lastPurchase": "2018-01-17",
+                    "purchaseHistory": [
+                        {
+                            "saleId": "70a8747d7aaceb61d2c91eab",
+                            "date": "2018-01-17",
+                            "amount": 2
+                        },
+                        {
+                            "saleId": "72a8747d7aaceb61d2c91eab",
+                            "date": "2018-01-17",
+                            "amount": 28
+                        }
+                    ],
+                    "points": 10,
+                    "active": true
+                }
+            },
+            "Purchase": {
+                "title": "Purchase",
+                "description": "Purchase.",
+                "type": "object",
+                "properties": {
+                    "saleId": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "amount": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "saleId": "70a8747d7aaceb61d2c91eab",
+                    "date": "2018-01-17",
+                    "amount": 19
+                }
+            },
+            "PaginatedCustomerReponse": {
+                "description": "Paginated customer response.",
+                "type": "object",
+                "properties": {
+                    "totalPages": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "results": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CustomerResponse"
+                        }
+                    }
+                },
+                "example": {
+                    "totalPages": 15,
+                    "page": 1,
+                    "results": [
+                        {
+                            "_id": "65a8747d7aaceb61d2c91eab",
+                            "firstName": "John",
+                            "lastName": "Doe",
+                            "email": "john.doe@email.com",
+                            "address": {
+                                "firstLine": "Main street 01",
+                                "lastLine": "Apt 4",
+                                "city": "Smalville"
+                            },
+                            "membershipCode": "cO2JskE6"
+                        }
+                    ]
+                }
+            },
+            "PaginatedProductResponse": {
+                "description": "Paginated product response.",
+                "type": "object",
+                "properties": {
+                    "totalPages": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "results": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProductResponse"
+                        }
+                    }
+                },
+                "example": {
+                    "totalPages": 10,
+                    "page": 1,
+                    "results": [
+                        {
+                            "_id": "65a8747d7aaceb61d2c91eab",
+                            "name": "Product 1",
+                            "description": "Product description",
+                            "category": "Some Category",
+                            "brand": "No brand",
+                            "quantity": 50,
+                            "price": 1.8,
+                            "pointsPrice": 6
+                        }
+                    ]
+                }
+            },
+            "PaginatedMembershipResponse": {
+                "description": "Paginated membership response.",
+                "type": "object",
+                "properties": {
+                    "totalPages": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "results": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MembershipResponse"
+                        }
+                    }
+                },
+                "example": {
+                    "totalPages": 16,
+                    "page": 1,
+                    "results": [
+                        {
+                            "_id": "65a8747d7aaceb61d2c91eab",
+                            "code": "cO2JskE6",
+                            "registrationDate": "2018-01-17",
+                            "lastPurchase": "2018-01-17",
+                            "purchaseHistory": [
+                                {
+                                    "saleId": "70a8747d7aaceb61d2c91eab",
+                                    "date": "2018-01-17",
+                                    "amount": 2
+                                },
+                                {
+                                    "saleId": "72a8747d7aaceb61d2c91eab",
+                                    "date": "2018-01-17",
+                                    "amount": 28
+                                }
+                            ],
+                            "points": 99,
+                            "active": true
+                        }
+                    ]
+                }
+            },
+            "PaginatedSaleResponse": {
+                "description": "Paginated sale response.",
+                "type": "object",
+                "properties": {
+                    "totalPages": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "results": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SaleResponse"
+                        }
+                    }
+                },
+                "example": {
+                    "totalPages": 20,
+                    "page": 1,
+                    "results": [
+                        {
+                            "_id": "65a8747d7aaceb61d2c91eab",
+                            "saleDate": "2023-02-10",
+                            "membershipCode": "cO2JskE6",
+                            "products": [
+                                {
+                                    "name": "Some product",
+                                    "quantity": 2,
+                                    "price": 1.5
+                                }
+                            ],
+                            "totalAmount": 3,
+                            "isCancelled": false,
+                            "points": 1
+                        }
+                    ]
+                }
+            },
+            "SaleProductResponse": {
+                "title": "SaleProductResponse",
+                "description": "Sale product response.",
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "productName": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "price": {
+                        "format": "double",
+                        "type": "number"
+                    }
+                },
+                "example": {
+                    "productId": "65a8747d7aaceb61d2c91ecd",
+                    "productName": "Some product",
+                    "quantity": 2,
+                    "price": 1.5
+                }
+            },
+            "SaleProductRequest": {
+                "title": "SaleProduct",
+                "description": "Sale product request.",
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "productId": "65a8747d7aaceb61d2c91ecd",
+                    "quantity": 2
+                }
+            },
+            "SaleProductPointsResponse": {
+                "title": "Root Type for ProductPointsResponse",
+                "description": "Sale product with points response.",
+                "type": "object",
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "productName": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "points": {
+                        "format": "int32",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "productId": "65a8747d7aaceb61d2c91ecd",
+                    "productName": "Some product",
+                    "quantity": 2,
+                    "points": 2
+                }
+            },
+            "SalePointsResponse": {
+                "title": "Root Type for SalePointsSale",
+                "description": "Sale with points response.",
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "saleDate": {
+                        "format": "date",
+                        "type": "string"
+                    },
+                    "membershipCode": {
+                        "type": "string"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SaleProductPointsResponse"
+                        }
+                    },
+                    "pointsUsed": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "isCancelled": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "_id": "65a8747d7aaceb61d2c91eab",
+                    "saleDate": "2023-02-10",
+                    "membershipCode": "cO2JskE6",
+                    "products": [
+                        {
+                            "productId": "65a8747d7aaceb61d2c91ecd",
+                            "productName": "Some product",
+                            "quantity": 2,
+                            "points": 2
+                        }
+                    ],
+                    "pointsUsed": 4,
+                    "isCancelled": false
+                }
+            }
+        }
+    },
+    "x-original-swagger-version": "2.0"
+}

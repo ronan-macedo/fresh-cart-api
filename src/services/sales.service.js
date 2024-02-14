@@ -58,7 +58,7 @@ salesService.processSaleWithPoints = async (products, membershipCode) => {
             productId: item.productId,
             productName: storagedProduct.name,
             quantity: parseInt(item.quantity),
-            points: parseFloat(storagedProduct.price)
+            points: parseFloat(storagedProduct.pointsPrice)
         };
 
         let quantity = parseInt(storagedProduct.quantity) - parseInt(item.quantity);

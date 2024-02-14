@@ -82,7 +82,7 @@ productsController.createProduct = async (req, res) => {
 }
 
 /**
- * Updates a customer.
+ * Updates a product.
  * @param {Object} req Express request object.
  * @param {Object} res Express response object.
  * @returns {Promise<void>} A Promise that resolves after handling the request.

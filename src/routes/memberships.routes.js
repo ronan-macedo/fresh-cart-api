@@ -5,7 +5,7 @@
 
 const { requiresAuth } = require('express-openid-connect');
 const membershipsController = require('../controllers/memberships.controller');
-const commonValidator = require('../validators/common.validation');
+const commonValidator = require('../validators/common.validator');
 const membershipsValidator = require('../validators/memberships.validator');
 const utils = require('../utils');
 

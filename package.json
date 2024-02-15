@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "tests": "jest --watch --verbose"
+    "tests": "jest --watch --verbose"    
   },
   "keywords": [],
   "author": "Ronan Macedo, Kevin Minchakpu, Blessing Madhuma, and Wade Harris",

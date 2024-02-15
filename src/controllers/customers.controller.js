@@ -146,7 +146,7 @@ customersController.updateCustomer = async (req, res) => {
             }
         }
     });
-    const isActive = customerUpdates.membership;
+    const isActive = customerUpdates.membership ? customerUpdates.membership  === 'true' : null;
 
     if (customerUpdates.membership) {
         delete customerUpdates.membership;

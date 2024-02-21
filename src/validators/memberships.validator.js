@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body } = require('express-validator');
 const membershipsValidator = {};
 
 /**
@@ -7,21 +7,21 @@ const membershipsValidator = {};
  */
 membershipsValidator.membershipRules = () => {
     return [
-        body("customerId")
+        body('customerId')
             .trim()
             .notEmpty()
-            .withMessage("customerId is required.")
+            .withMessage('customerId is required.')
             .isAlphanumeric()
-            .withMessage("customerId does not have any special character.")
+            .withMessage('customerId does not have any special character.')
             .isLength({ min: 24, max: 24 })
-            .withMessage("customerId should have 24 characters."),
+            .withMessage('customerId should have 24 characters.'),
 
-        body("membership")
+        body('membership')
             .trim()
             .notEmpty()
-            .withMessage("membership is required.")
+            .withMessage('membership is required.')
             .isBoolean()
-            .withMessage("membership should be true or false."),
+            .withMessage('membership should be true or false.'),
     ];
 }
 

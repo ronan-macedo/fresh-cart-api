@@ -3,11 +3,10 @@
  * @typedef {import('express').Router} ExpressRouter
  */
 
-const { requiresAuth } = require('express-openid-connect');
-const salesController = require('../controllers/sales.controller');
-const commonValidator = require('../validators/common.validator');
-const salesValidator = require('../validators/sales.validator');
-const utils = require('../utils');
+const salesController = require('../../../src/controllers/sales.controller');
+const commonValidator = require('../../../src/validators/common.validator');
+const salesValidator = require('../../../src/validators/sales.validator');
+const utils = require('../../../src/utils');
 
 /**
  * Express Router for sale-related routes.
@@ -23,7 +22,6 @@ const salesRouter = require('express').Router();
  */
 salesRouter.get(
     '/',
-    requiresAuth(),
     utils.errorHandler(salesController.getPaginatedSales));
 
 /**
@@ -34,7 +32,6 @@ salesRouter.get(
  */
 salesRouter.get(
     '/:id',
-    requiresAuth(),
     commonValidator.idRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(salesController.getSale));
@@ -47,7 +44,6 @@ salesRouter.get(
  */
 salesRouter.post(
     '/',
-    requiresAuth(),
     salesValidator.createSalesRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(salesController.createSale));
@@ -60,7 +56,6 @@ salesRouter.post(
  */
 salesRouter.post(
     '/points',
-    requiresAuth(),
     salesValidator.createSalesWithPointsRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(salesController.createSaleWithPoints));
@@ -72,10 +67,9 @@ salesRouter.post(
  * @memberof ExpressRouter
  */
 salesRouter.put(
-    '/:id',    
-    requiresAuth(),    
-    salesValidator.cancelSaleRules(),    
-    commonValidator.checkValidationRules,    
+    '/:id',
+    salesValidator.cancelSaleRules(),
+    commonValidator.checkValidationRules,
     utils.errorHandler(salesController.cancelSale));
 
 module.exports = salesRouter;

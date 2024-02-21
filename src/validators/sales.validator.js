@@ -1,7 +1,7 @@
-const { body, param } = require("express-validator");
+const { body, param } = require('express-validator');
 const { ObjectId } = require('mongodb');
-const membershipModel = require("../models/memberships.model");
-const productModel = require("../models/products.model");
+const membershipModel = require('../models/memberships.model');
+const productModel = require('../models/products.model');
 const salesValidator = {};
 
 /**
@@ -10,52 +10,54 @@ const salesValidator = {};
  */
 salesValidator.createSalesRules = () => {
     return [
-        body("membershipCode")
+        body('membershipCode')
             .trim()
             .notEmpty()
-            .withMessage("code is required.")
+            .withMessage('code is required.')
             .isLength({ min: 8, max: 8 })
-            .withMessage("customerId should have 8 characters.")
+            .withMessage('customerId should have 8 characters.')
             .custom(async (membershipCode) => {
                 const membership = await membershipModel.getMembership(membershipCode);
 
                 if (!membership) {
-                    throw new Error("membershipCode does not exist.");
+                    throw new Error('membershipCode does not exist.');
                 }
 
                 if (!membership.active) {
-                    throw new Error("membershipCode is not active.");
+                    throw new Error('membershipCode is not active.');
                 }
             })
             .optional(),
 
-        body("products")
+        body('products')
             .notEmpty()
-            .withMessage("products is required."),
+            .withMessage('products is required.')
+            .isArray({ min: 1 })
+            .withMessage('products should not be empty.'),
 
-        body("products.*.productId")
+        body('products.*.productId')
             .trim()
             .notEmpty()
-            .withMessage("productId is required.")
+            .withMessage('productId is required.')
             .isAlphanumeric()
-            .withMessage("productId does not have any special character.")
+            .withMessage('productId does not have any special character.')
             .isLength({ min: 24, max: 24 })
-            .withMessage("productId should have 24 characters.")
+            .withMessage('productId should have 24 characters.')
             .custom(async (productId) => {
                 const id = new ObjectId(String(productId));
                 const product = await productModel.getProduct(id);
 
                 if (!product) {
-                    throw new Error("product does not exist.");
+                    throw new Error('product does not exist.');
                 }
             }),
 
-        body("products.*.quantity")
+        body('products.*.quantity')
             .trim()
             .notEmpty()
-            .withMessage("quantity is required.")
+            .withMessage('quantity is required.')
             .isInt({ min: 1 })
-            .withMessage("quantity should be above 0.")
+            .withMessage('quantity should be above 0.')
             .custom(async (quantity, { req, path }) => {
                 const index = parseInt(path.split('.')[0].match(/\[(\d+)\]/)[1]);
                 const product = req.body.products[index];
@@ -76,51 +78,53 @@ salesValidator.createSalesRules = () => {
  */
 salesValidator.createSalesWithPointsRules = () => {
     return [
-        body("membershipCode")
+        body('membershipCode')
             .trim()
             .notEmpty()
-            .withMessage("code is required.")
+            .withMessage('code is required.')
             .isLength({ min: 8, max: 8 })
-            .withMessage("customerId should have 8 characters.")
+            .withMessage('customerId should have 8 characters.')
             .custom(async (membershipCode) => {
                 const membership = await membershipModel.getMembership(membershipCode);
 
                 if (!membership) {
-                    throw new Error("membershipCode does not exist.");
+                    throw new Error('membershipCode does not exist.');
                 }
 
                 if (!membership.active) {
-                    throw new Error("membershipCode is not active.");
+                    throw new Error('membershipCode is not active.');
                 }
             }),
 
-        body("products")            
+        body('products')
             .notEmpty()
-            .withMessage("products is required."),
+            .withMessage('products is required.')
+            .isArray({ min: 1 })
+            .withMessage('products should not be empty.'),
 
-        body("poducts.*.productId")
+        body('poducts.*.productId')
             .trim()
             .notEmpty()
-            .withMessage("productId is required.")
+            .withMessage('productId is required.')
             .isAlphanumeric()
-            .withMessage("productId does not have any special character.")
+            .withMessage('productId does not have any special character.')
             .isLength({ min: 24, max: 24 })
-            .withMessage("productId should have 24 characters.")
+            .withMessage('productId should have 24 characters.')
             .custom(async (productId) => {
                 const id = ObjectId(productId);
                 const product = await productModel.getProduct(id);
 
                 if (!product) {
-                    throw new Error("product does not exist.");
+                    throw new Error('product does not exist.');
                 }
             }),
 
-        body("poducts.*.quantity")
+        body('poducts.*.quantity')
             .trim()
             .notEmpty()
-            .withMessage("quantity is required.")
+            .withMessage('quantity is required.')
             .isInt({ min: 1 })
-            .withMessage("quantity should be above 0.")
+            .withMessage('quantity should be above 0.')
             .custom(async (quantity, { req, path }) => {
                 const index = parseInt(path.split('.')[0].match(/\[(\d+)\]/)[1]);
                 const product = req.body.products[index];
@@ -141,21 +145,21 @@ salesValidator.createSalesWithPointsRules = () => {
  */
 salesValidator.cancelSaleRules = () => {
     return [
-        param("id")
+        param('id')
             .trim()
             .notEmpty()
-            .withMessage("Id is required.")
+            .withMessage('Id is required.')
             .isAlphanumeric()
-            .withMessage("Id does not have any special character.")
+            .withMessage('Id does not have any special character.')
             .isLength({ min: 24, max: 24 })
-            .withMessage("Id should have 24 characters."),
+            .withMessage('Id should have 24 characters.'),
 
-        body("isCancelled")
+        body('isCancelled')
             .trim()
             .notEmpty()
-            .withMessage("isCancelled is required.")
+            .withMessage('isCancelled is required.')
             .isBoolean()
-            .withMessage("isCancelled should be true or false."),
+            .withMessage('isCancelled should be true or false.'),
     ];
 }
 

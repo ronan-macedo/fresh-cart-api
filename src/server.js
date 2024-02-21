@@ -44,8 +44,8 @@ initinitializeDb((error) => {
     } else {
         app.use(cors())
             .use(auth(authConfig))
-            .use(bodyParser.json())                       
-            .use(bodyParser.urlencoded({ extended: true }))
+            .use(express.json())                       
+            .use(express.urlencoded({ extended: true }))
             .use('/', require('./routes'))
             .use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))            
             .use(async (_req, _res, next) => {

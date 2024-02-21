@@ -1,3 +1,4 @@
+require('dotenv').config();
 /** 
  * @typedef {import('mongodb').Db} Db MongoDB database.
  */

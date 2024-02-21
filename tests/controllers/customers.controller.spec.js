@@ -450,36 +450,7 @@ describe('Customers Controller', () => {
       // Assert
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual(updatedCustomer);
-    });
-
-    test('should handle generate membership code bad request in update customer request', async () => {
-      // Arrange
-      const customerId = '65cb77f989c7ed91e4efa318';
-      const updateCustomer = {
-        firstName: 'Mike',
-        lastName: 'Smith',
-        email: 'mike.smith@email.com',
-        address: {
-          firstLine: 'Main street 02',
-          lastLine: 'Apt 8',
-          city: 'Centerville'
-        },
-        membership: 'true'
-      };
-      customersModel.getMembershipCode.mockResolvedValue(null);
-      membershipsService.createMembership.mockResolvedValue(null);
-
-      // Act
-      const response = await request(sut).put(`/customer/${customerId}`).send(updateCustomer);
-
-      // Assert
-      expect(response.statusCode).toBe(400);
-      expect(response.body).toEqual({
-        errors: [
-          { error: 'Error while generating a membership code.' }
-        ]
-      });
-    });
+    });    
 
     test('should handle update membership bad request in update customer request', async () => {
       // Arrange

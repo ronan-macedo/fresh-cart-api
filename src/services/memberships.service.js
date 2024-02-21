@@ -1,4 +1,3 @@
-const membershipModel = require('../models/memberships.model');
 const customersModel = require('../models/customers.model');
 const membershipsModel = require('../models/memberships.model');
 
@@ -22,7 +21,7 @@ membershipsService.createMembership = async () => {
  * @returns {Promise<Boolean>} Returns true if the deletion is successful, false otherwise. 
  */
 membershipsService.deleteMembership = async (membershipCode) => {
-    const result = await membershipModel.deleteMembership(membershipCode);
+    const result = await membershipsModel.deleteMembership(membershipCode);
 
     if (result.deletedCount > 0) {
         return true;
@@ -109,7 +108,7 @@ const processCreateMembership = async () => {
         active: true
     };
 
-    const result = await membershipModel.createMembership(membership);
+    const result = await membershipsModel.createMembership(membership);
 
     if (result.acknowledged) {
         return membershipCode;

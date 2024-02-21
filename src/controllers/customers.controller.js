@@ -40,7 +40,7 @@ customersController.getCustomer = async (req, res) => {
         const customer = await customersModel.getCustomer(id);
 
         if (!customer) {
-            await utils.notFoundResponse(res, "customer");
+            await utils.notFoundResponse(res, 'customer');
             return;
         }
 
@@ -63,7 +63,7 @@ customersController.getCustomerByMembershipCode = async (req, res) => {
         const customer = await customersModel.getCustomerByMembershipCode(code);
 
         if (!customer) {
-            await utils.notFoundResponse(res, "customer");
+            await utils.notFoundResponse(res, 'customer');
             return;
         }
 
@@ -97,7 +97,7 @@ customersController.createCustomer = async (req, res) => {
             const membershipCode = await membershipsService.createMembership();
 
             if (!membershipCode) {
-                await utils.badRequestResponse(res, "Error while generating a membership code.");
+                await utils.badRequestResponse(res, 'Error while generating a membership code.');
                 return;
             }
 
@@ -112,7 +112,7 @@ customersController.createCustomer = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while creating a customer.");
+        await utils.badRequestResponse(res, 'Error while creating a customer.');
 
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
@@ -138,15 +138,10 @@ customersController.updateCustomer = async (req, res) => {
                     customerUpdates[field][addressField] = req.body[field][addressField];
                 }
             });
-        } else if (req.body[field]) {
-            if (field === 'membership') {
-                customerUpdates[field] = req.body[field] === 'true';
-            } else {
-                customerUpdates[field] = req.body[field];
-            }
         }
+        customerUpdates[field] = req.body[field];
     });
-    const isActive = customerUpdates.membership;
+    const isActive = customerUpdates.membership ? customerUpdates.membership === 'true' : null;
 
     if (customerUpdates.membership) {
         delete customerUpdates.membership;
@@ -154,16 +149,26 @@ customersController.updateCustomer = async (req, res) => {
 
     try {
         const membershipCode = await customersModel.getMembershipCode(id);
-        const membershipUpdateResult = (isActive || membershipCode) ?
-            await updateCustomerMembership(id, isActive) : null;
+        let membershipUpdateResult = null;
 
-        if (membershipUpdateResult === null && membershipCode) {
-            await utils.badRequestResponse(res, "Error while updating membership.");
-            return;
+        if (membershipCode && isActive != null) {
+            membershipUpdateResult = await membershipsService.updateMembership(membershipCode, isActive);
+
+            if (membershipUpdateResult === null) {
+                await utils.badRequestResponse(res, 'Error while updating membership.');
+                return;
+            }
         }
 
-        if (membershipUpdateResult?.membershipCode) {
-            customerUpdates.membershipCode = membershipUpdateResult.membershipCode;
+        if (!membershipCode && isActive) {
+            const newMembershipCode = await membershipsService.createMembership();
+
+            if (!newMembershipCode) {
+                await utils.badRequestResponse(res, 'Error while generating a membership code.');
+                return;
+            }
+
+            customerUpdates.membershipCode = newMembershipCode;
         }
 
         const existingCustomer = await customersModel.getCustomer(id);
@@ -177,7 +182,7 @@ customersController.updateCustomer = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while updating a customer.");
+        await utils.badRequestResponse(res, 'Error while updating a customer.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
@@ -199,7 +204,7 @@ customersController.deleteCustomer = async (req, res) => {
             const isDeleted = await membershipsService.deleteMembership(membershipCode);
 
             if (!isDeleted) {
-                await utils.badRequestResponse(res, "Error while deleteing a membership.");
+                await utils.badRequestResponse(res, 'Error while deleteing a membership.');
                 return;
             }
         }
@@ -211,29 +216,11 @@ customersController.deleteCustomer = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while deleting a customer.");
+        await utils.badRequestResponse(res, 'Error while deleting a customer.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
 }
-
-/**
- * Updates the membership status for a customer. 
- * @param {ObjectId} customerId The unique identifier of the customer.
- * @param {Boolean} isActive The new activation status for the membership.
- * @returns {Promise<{ membershipCode: string } | null>} A Promise that resolves to an object 
- * containing the updated membership code, or null if the membership couldn't be updated.
- */
-const updateCustomerMembership = async (customerId, isActive) => {
-    const membershipCode = await customersModel.getMembershipCode(customerId);
-
-    if (membershipCode) {
-        return await membershipsService.updateMembership(membershipCode, isActive);
-    } else {
-        const newMembershipCode = await membershipsService.createMembership();
-        return newMembershipCode ? { membershipCode: newMembershipCode } : null;
-    }
-};
 
 /**
  * Recursively updates nested fields in an object, preserving existing values. 

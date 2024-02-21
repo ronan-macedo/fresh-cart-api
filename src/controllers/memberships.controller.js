@@ -41,7 +41,7 @@ membershipsController.getMembershipByMembershipCode = async (req, res) => {
         const membership = await membershipsModel.getMembership(code);
 
         if (!membership) {
-            await utils.notFoundResponse(res, "membership");
+            await utils.notFoundResponse(res, 'membership');
             return;
         }
 
@@ -72,7 +72,7 @@ membershipsController.activateDeactivateMembership = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while handling membership.");
+        await utils.badRequestResponse(res, 'Error while handling membership.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }

@@ -1282,7 +1282,7 @@
                   "address": {
                       "firstLine": "Main street 01",
                       "lastLine": "Apt 4",
-                      "city": "Smalville"
+                      "city": "Smallville"
                   },
                   "membership": true
               }
@@ -1320,7 +1320,7 @@
                   "address": {
                       "firstLine": "Main street 01",
                       "lastLine": "Apt 4",
-                      "city": "Smalville"
+                      "city": "Smallville"
                   },
                   "membershipCode": "cO2JskE6"
               }
@@ -1674,7 +1674,7 @@
                           "address": {
                               "firstLine": "Main street 01",
                               "lastLine": "Apt 4",
-                              "city": "Smalville"
+                              "city": "Smallville"
                           },
                           "membershipCode": "cO2JskE6"
                       }
@@ -1859,7 +1859,7 @@
               }
           },
           "SaleProductPointsResponse": {
-              "title": "Root Type for ProductPointsResponse",
+              "title": "ProductPointsResponse",
               "description": "Sale product with points response.",
               "type": "object",
               "properties": {
@@ -1886,7 +1886,7 @@
               }
           },
           "SalePointsResponse": {
-              "title": "Root Type for SalePointsSale",
+              "title": "SalePointsSale",
               "description": "Sale with points response.",
               "type": "object",
               "properties": {

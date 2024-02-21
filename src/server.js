@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
 const initinitializeDb = require('./database/connection').initializeDb;
 const { auth } = require('express-openid-connect');
 const cors = require('cors');

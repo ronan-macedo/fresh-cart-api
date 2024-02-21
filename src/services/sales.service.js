@@ -40,7 +40,7 @@ salesService.processSaleWithPoints = async (products, membershipCode) => {
     }
 
     if (membershipPoints < totalPoints) {
-        errorMessage = "Not enough points, please choose lower quantities.";
+        errorMessage = 'Not enough points, please choose lower quantities.';
         return { errorMessage, result };
     }
 
@@ -67,7 +67,7 @@ salesService.processSaleWithPoints = async (products, membershipCode) => {
         const updatedProduct = await productsModel.updateProduct(id, storagedProduct);
 
         if (updatedProduct.matchedCount < 0) {
-            throw Error("Error while updating a storaged product.");
+            throw Error('Error while updating a storaged product.');
         }
 
         productList.push(product);
@@ -80,7 +80,7 @@ salesService.processSaleWithPoints = async (products, membershipCode) => {
     result = await salesModel.createSale(sale);
 
     if (!result.acknowledged) {
-        throw Error("Error while creating a sale.");
+        throw Error('Error while creating a sale.');
     }
 
     await removeMembershipPoints(membershipCode, totalPoints);
@@ -101,17 +101,17 @@ salesService.processSaleCancellation = async (saleId, isCancelled) => {
     const sale = await salesModel.getSale(saleId);
 
     if (sale.isCancelled && !isCancelled) {
-        errorMessage = "It is not possible to undo a sale cancellation."
+        errorMessage = 'It is not possible to undo a sale cancellation.'
         return { errorMessage, result };
     }
 
     if (!sale.isCancelled && !isCancelled) {
-        errorMessage = "Sale is already valid."
+        errorMessage = 'Sale is already valid.'
         return { errorMessage, result };
     }
 
     if (sale.isCancelled && isCancelled) {
-        errorMessage = "Sale is already canceled."
+        errorMessage = 'Sale is already canceled.'
         return { errorMessage, result };
     }
 
@@ -152,7 +152,7 @@ const processProducts = async (products) => {
         const updatedProduct = await productsModel.updateProduct(id, storagedProduct);
 
         if (updatedProduct.matchedCount < 0) {
-            throw Error("Error while updating a storaged product.");
+            throw Error('Error while updating a storaged product.');
         }
 
         productList.push(product);
@@ -185,7 +185,7 @@ const processSaleWithMembership = async (products, membershipCode) => {
     const createdSale = await salesModel.createSale(sale);
 
     if (!createdSale.acknowledged) {
-        throw Error("Error while creating a sale.");
+        throw Error('Error while creating a sale.');
     }
 
     await addPurchaseHistory(currentDate, createdSale.insertedId, totalAmount, membershipCode);
@@ -235,7 +235,7 @@ const addMembershipPoints = async (membershipCode, points) => {
 
     const updatedMembership = await membershipsModel.updateMembership(membershipCode, existingMembership);
     if (updatedMembership.matchedCount < 0) {
-        throw Error("Error while adding points to membership.");
+        throw Error('Error while adding points to membership.');
     }
 }
 
@@ -252,7 +252,7 @@ const removeMembershipPoints = async (membershipCode, points) => {
 
     const updatedMembership = await membershipsModel.updateMembership(membershipCode, existingMembership);
     if (updatedMembership.matchedCount < 0) {
-        throw Error("Error while removing points to membership.");
+        throw Error('Error while removing points to membership.');
     }
 }
 
@@ -279,7 +279,7 @@ const addPurchaseHistory = async (currentDate, saleId, totalAmount, membershipCo
 
     const result = await membershipsModel.updateMembership(membershipCode, updatedMembership);
     if (result.matchedCount < 0) {
-        throw Error("Error while updating purchase history.");
+        throw Error('Error while updating purchase history.');
     }
 }
 
@@ -306,7 +306,7 @@ const addPurchasePointsHistory = async (currentDate, saleId, totalPoints, member
 
     const result = await membershipsModel.updateMembership(membershipCode, updatedMembership);
     if (result.matchedCount < 0) {
-        throw Error("Error while updating purchase history.");
+        throw Error('Error while updating purchase history.');
     }
 }
 
@@ -322,7 +322,7 @@ const removePurchaseHistory = async (saleId, membershipCode) => {
 
     const result = await membershipsModel.updateMembership(membershipCode, existingMembership);
     if (result.matchedCount < 0) {
-        throw Error("Error while updating purchase history.");
+        throw Error('Error while updating purchase history.');
     }
 }
 
@@ -347,14 +347,14 @@ const processSaleCancellationWithMembership = async (sale) => {
         const updatedProduct = await productsModel.updateProduct(id, storagedProduct);
 
         if (updatedProduct.matchedCount < 0) {
-            throw Error("Error while updating a storaged product.");
+            throw Error('Error while updating a storaged product.');
         }
     }
 
     const result = await salesModel.updateSale(sale._id, sale);
 
     if (updatedMembership.matchedCount < 0) {
-        throw Error("Error while updating a sale.");
+        throw Error('Error while updating a sale.');
     }
 
     await removeMembershipPoints(sale.membershipCode, points);
@@ -383,7 +383,7 @@ const processSaleCancellationWithoutMembership = async (sale) => {
         const updatedProduct = await productsModel.updateProduct(id, storagedProduct);
 
         if (updatedProduct.matchedCount < 0) {
-            throw Error("Error while updating a storaged product.");
+            throw Error('Error while updating a storaged product.');
         }
     }
 
@@ -412,14 +412,14 @@ const processSaleCancellationWithPoints = async (sale) => {
         const updatedProduct = await productsModel.updateProduct(id, storagedProduct);
 
         if (updatedProduct.matchedCount < 0) {
-            throw Error("Error while updating a storaged product.");
+            throw Error('Error while updating a storaged product.');
         }
     }
 
     const result = await salesModel.updateSale(sale._id, sale);
 
     if (result.matchedCount < 0) {
-        throw Error("Error while updating a sale.");
+        throw Error('Error while updating a sale.');
     }
 
     await addMembershipPoints(sale.membershipCode, points);

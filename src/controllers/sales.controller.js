@@ -1,6 +1,6 @@
 const salesModel = require('../models/sales.model');
 const salesService = require('../services/sales.service');
-const utils = require("../utils");
+const utils = require('../utils');
 const { ObjectId } = require('mongodb');
 
 const salesController = {};
@@ -11,7 +11,7 @@ const salesController = {};
  * @param {Object} res Express response object.
  * @returns {Promise<void>} A Promise that resolves after handling the request.
  */
-salesController.getPaginatedSale = async (req, res) => {
+salesController.getPaginatedSales = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
 
@@ -40,7 +40,7 @@ salesController.getSale = async (req, res) => {
         const sale = await salesModel.getSale(id);
 
         if (!sale) {
-            await utils.notFoundResponse(res, "sale");
+            await utils.notFoundResponse(res, 'sale');
             return;
         }
 
@@ -72,7 +72,7 @@ salesController.createSale = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while creating a sale.");
+        await utils.badRequestResponse(res, 'Error while creating a sale.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
@@ -102,7 +102,7 @@ salesController.createSaleWithPoints = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while creating a sale.");
+        await utils.badRequestResponse(res, 'Error while creating a sale.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
@@ -122,7 +122,7 @@ salesController.cancelSale = async (req, res) => {
         const sale = await salesModel.getSale(saleId);
 
         if (!sale) {
-            await utils.notFoundResponse(res, "sale");
+            await utils.notFoundResponse(res, 'sale');
             return;
         }
 
@@ -133,10 +133,12 @@ salesController.cancelSale = async (req, res) => {
             return;
         }
 
-        if (result.matchedCount > 0) {            
-            await utils.okResponse(res, {message: "Sale canceled successfully."});
+        if (result.matchedCount > 0) {
+            await utils.okResponse(res, { message: 'Sale canceled successfully.' });
             return;
         }
+
+        await utils.badRequestResponse(res, 'Error while canceling a sale.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }

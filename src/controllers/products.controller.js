@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
 const productsModel = require('../models/products.model');
-const utils = require("../utils");
+const utils = require('../utils');
 
 const productsController = {};
 
@@ -39,7 +39,7 @@ productsController.getProduct = async (req, res) => {
         const product = await productsModel.getProduct(id);
 
         if (!product) {
-            await utils.notFoundResponse(res, "product");
+            await utils.notFoundResponse(res, 'product');
             return;
         }
 
@@ -75,7 +75,7 @@ productsController.createProduct = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while creating a product.");
+        await utils.badRequestResponse(res, 'Error while creating a product.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
@@ -112,7 +112,7 @@ productsController.updateProduct = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while updating a product.");
+        await utils.badRequestResponse(res, 'Error while updating a product.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }
@@ -135,7 +135,7 @@ productsController.deleteProduct = async (req, res) => {
             return;
         }
 
-        await utils.badRequestResponse(res, "Error while deleting a product.");
+        await utils.badRequestResponse(res, 'Error while deleting a product.');
     } catch (error) {
         await utils.internalServerErrorResponse(res, error);
     }

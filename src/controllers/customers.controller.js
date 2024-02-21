@@ -138,8 +138,13 @@ customersController.updateCustomer = async (req, res) => {
                     customerUpdates[field][addressField] = req.body[field][addressField];
                 }
             });
+        } else if (req.body[field]) {
+            if (field === 'membership') {
+                customerUpdates[field] = req.body[field] === 'true';
+            } else {
+                customerUpdates[field] = req.body[field];
+            }
         }
-        customerUpdates[field] = req.body[field];
     });
     const isActive = customerUpdates.membership ? customerUpdates.membership === 'true' : null;
 

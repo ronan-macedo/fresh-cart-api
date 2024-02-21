@@ -1,5 +1,5 @@
-const { param, validationResult } = require("express-validator");
-const utils = require("../utils");
+const { param, validationResult } = require('express-validator');
+const utils = require('../utils');
 const commonValidator = {};
 
 /**
@@ -8,14 +8,14 @@ const commonValidator = {};
  */
 commonValidator.idRules = () => {
     return [
-        param("id")
+        param('id')
             .trim()
             .notEmpty()
-            .withMessage("Id is required.")
+            .withMessage('Id is required.')
             .isAlphanumeric()
-            .withMessage("Id does not have any special character.")
+            .withMessage('Id does not have any special character.')
             .isLength({ min: 24, max: 24 })
-            .withMessage("Id should have 24 characters."),
+            .withMessage('Id should have 24 characters.'),
     ];
 }
 
@@ -25,12 +25,12 @@ commonValidator.idRules = () => {
  */
 commonValidator.codeRules = () => {
     return [
-        param("code")
+        param('code')
             .trim()
             .notEmpty()
-            .withMessage("code is required.")
+            .withMessage('code is required.')
             .isLength({ min: 8, max: 8 })
-            .withMessage("customerId should have 8 characters."),
+            .withMessage('customerId should have 8 characters.'),
     ];
 }
 
@@ -43,7 +43,7 @@ commonValidator.codeRules = () => {
  * otherwise, sends a 400 response with validation errors.
  */
 commonValidator.checkValidationRules = async (req, res, next) => {
-    let validationErrors = [];    
+    let validationErrors = [];
     validationErrors = validationResult(req);
 
     if (!validationErrors.isEmpty()) {

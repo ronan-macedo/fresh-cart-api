@@ -3,11 +3,10 @@
  * @typedef {import('express').Router} ExpressRouter
  */
 
-const { requiresAuth } = require('express-openid-connect');
-const customersController = require('../controllers/customers.controller');
-const commonValidator = require('../validators/common.validator');
-const customersValidator = require('../validators/customers.validator');
-const utils = require('../utils')
+const customersController = require('../../../src/controllers/customers.controller');
+const commonValidator = require('../../../src/validators/common.validator');
+const customersValidator = require('../../../src/validators/customers.validator');
+const utils = require('../../../src/utils')
 
 /**
  * Express Router for customer-related routes.
@@ -23,7 +22,6 @@ const customersRouter = require('express').Router();
  */
 customersRouter.get(
     '/',
-    requiresAuth(),
     utils.errorHandler(customersController.getPaginatedCustomers));
 
 /**
@@ -34,7 +32,6 @@ customersRouter.get(
 */
 customersRouter.get(
     '/:id',
-    requiresAuth(),
     commonValidator.idRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(customersController.getCustomer));
@@ -47,7 +44,6 @@ customersRouter.get(
  */
 customersRouter.get(
     '/membership/:code',
-    requiresAuth(),
     commonValidator.codeRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(customersController.getCustomerByMembershipCode));
@@ -60,7 +56,6 @@ customersRouter.get(
  */
 customersRouter.post(
     '/',
-    requiresAuth(),
     customersValidator.createCustomerRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(customersController.createCustomer));
@@ -73,7 +68,6 @@ customersRouter.post(
  */
 customersRouter.put(
     '/:id',
-    requiresAuth(),
     customersValidator.updateCustomerRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(customersController.updateCustomer));
@@ -87,7 +81,6 @@ customersRouter.put(
  */
 customersRouter.delete(
     '/:id',
-    requiresAuth(),
     commonValidator.idRules(),
     commonValidator.checkValidationRules,
     utils.errorHandler(customersController.deleteCustomer));
